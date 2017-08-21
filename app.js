@@ -1,7 +1,7 @@
 
 var MongoClient = require('mongodb').MongoClient,
     assert = require('assert'),
-    url = 'mongodb://localhost:27017/mongodb-nodejs';
+    url = 'mongodb://localhost:27017/mongodb-nodejs',
     insertDocuments;
 
 insertDocuments = function(db, callback) {
