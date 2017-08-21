@@ -24,7 +24,8 @@ insertDocuments = function(db, callback) {
 findDocuments = function(db, callback) {
     var collection = db.collection('documents');
 
-    collection.find({}).toArray(function(err, docs) {
+    // Look for a specific record
+    collection.find({ 'a': 3 }).toArray(function(err, docs) {
         assert.equal(null, err);
         console.log('Found the following records:');
         console.log(docs);
