@@ -4,7 +4,8 @@ var MongoClient = require('mongodb').MongoClient,
     url = 'mongodb://localhost:27017/mongodb-nodejs',
     insertDocuments,
     findDocuments,
-    updateDocuments;
+    updateDocuments,
+    removeDocuments;
 
 insertDocuments = function(db, callback) {
     var collection = db.collection('documents');
@@ -46,13 +47,26 @@ updateDocuments = function(db, callback) {
     });
 }
 
+removeDocuments = function(db, callback) {
+    var collection = db.collection('documents');
+
+    collection.deleteOne({ a: 3 }, function (err, result) {
+        assert.equal(err, null);
+        assert.equal(1, result.result.n);
+        console.log('Removed the document with the field \'a\' equal to 3');
+        callback(result);
+    });
+}
+
 MongoClient.connect(url, function(err, db) {
     assert.equal(null, err);
     console.log('Successfully connected to the server.');
 
     insertDocuments(db, function() {
         updateDocuments(db, function() {
-            db.close();
+            removeDocuments(db, function() {
+                db.close();
+            });
         });
     });
 });
