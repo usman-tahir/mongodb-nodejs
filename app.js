@@ -5,7 +5,8 @@ var MongoClient = require('mongodb').MongoClient,
     insertDocuments,
     findDocuments,
     updateDocuments,
-    removeDocuments;
+    removeDocuments,
+    indexCollection;
 
 insertDocuments = function(db, callback) {
     var collection = db.collection('documents');
@@ -58,15 +59,20 @@ removeDocuments = function(db, callback) {
     });
 }
 
+indexCollection = function(db, callback) {
+    db.collection('documents').createIndex({ 'a': 1 }, null, function(err, results) {
+        console.log(results);
+        callback();
+    });
+}
+
 MongoClient.connect(url, function(err, db) {
     assert.equal(null, err);
     console.log('Successfully connected to the server.');
 
     insertDocuments(db, function() {
-        updateDocuments(db, function() {
-            removeDocuments(db, function() {
-                db.close();
-            });
-        });
+        indexCollection(db, function() {
+            db.close();
+        })
     });
 });
