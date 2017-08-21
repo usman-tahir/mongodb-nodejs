@@ -1,0 +1,25 @@
+{
+  "name": "mongodb-nodejs",
+  "version": "1.0.0",
+  "description": "MongoDB snippets using Node.js as a driver",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/usman-tahir/mongodb-nodejs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/usman-tahir/mongodb-nodejs/issues"
+  },
+  "homepage": "https://github.com/usman-tahir/mongodb-nodejs#readme",
+  "dependencies": {
+    "bson-ext": "^1.0.5",
+    "kerberos": "0.0.23",
+    "mongodb": "^2.2.31"
+  }
+}
