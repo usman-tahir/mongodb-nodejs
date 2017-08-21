@@ -3,7 +3,8 @@ var MongoClient = require('mongodb').MongoClient,
     assert = require('assert'),
     url = 'mongodb://localhost:27017/mongodb-nodejs',
     insertDocuments,
-    findDocuments;
+    findDocuments,
+    updateDocuments;
 
 insertDocuments = function(db, callback) {
     var collection = db.collection('documents');
@@ -34,12 +35,23 @@ findDocuments = function(db, callback) {
     });
 }
 
+updateDocuments = function(db, callback) {
+    var collection = db.collection('documents');
+
+    collection.updateOne({ a: 2 }, { $set: { b: 1 } }, function(err, result) {
+        assert.equal(err, null);
+        assert.equal(1, result.result.n);
+        console.log('Updated the document with the field \'a\' equal to 2');
+        callback(result);
+    });
+}
+
 MongoClient.connect(url, function(err, db) {
     assert.equal(null, err);
     console.log('Successfully connected to the server.');
 
     insertDocuments(db, function() {
-        findDocuments(db, function() {
+        updateDocuments(db, function() {
             db.close();
         });
     });
